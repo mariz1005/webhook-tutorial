@@ -561,16 +561,9 @@
         this.fetchWebhooks();
         this.fetchEvents();
 
-        // Poll for new events every 2 seconds (instead of WebSocket)
-        this.pollInterval = setInterval(() => {
-          this.fetchEvents();
-        }, 2000);
+        // Don't poll! Fetch only when user takes action
+        // This saves Azure RUs and network bandwidth
       },
-      beforeUnmount() {
-        if (this.pollInterval) {
-          clearInterval(this.pollInterval);
-        }
-      }
     }).mount('#app');
   </script>
 </body>
